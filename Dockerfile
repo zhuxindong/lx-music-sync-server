@@ -4,7 +4,7 @@ RUN set -ex \
            git \
            g++ \
            make \
-           py3-pip \
+           py3-pip
 WORKDIR /server
 COPY . .
 # RUN npm install
@@ -19,7 +19,7 @@ RUN set -ex \
            git \
            g++ \
            make \
-           py3-pip \
+           py3-pip
 WORKDIR /server
 COPY --from=builder ./server/server ./server
 COPY package.json package-lock.json config.js index.js ./
