@@ -1,12 +1,12 @@
-FROM node:16-alpine AS builder
+FROM node:lts-alpine AS builder
 WORKDIR /server
 COPY . .
-RUN npm install
+# RUN npm install
 RUN npm ci
 RUN npm run build
 
 
-FROM node:16-alpine AS final
+FROM node:lts-alpine AS final
 WORKDIR /server
 COPY --from=builder ./server/server ./server
 COPY package.json package-lock.json config.js index.js ./
