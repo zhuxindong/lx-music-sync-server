@@ -1,4 +1,11 @@
-FROM node:lts-alpine AS builder
+FROM node:16-alpine AS builder
+RUN set -ex \
+    && apk add --update --no-cache \
+           git \
+           g++ \
+           make \
+           py3-pip \
+    && rm -rf /tmp/* /var/cache/apk/*
 WORKDIR /server
 COPY . .
 # RUN npm install
@@ -6,7 +13,14 @@ RUN npm ci
 RUN npm run build
 
 
-FROM node:lts-alpine AS final
+FROM node:16-alpine AS final
+RUN set -ex \
+    && apk add --update --no-cache \
+           git \
+           g++ \
+           make \
+           py3-pip \
+    && rm -rf /tmp/* /var/cache/apk/*
 WORKDIR /server
 COPY --from=builder ./server/server ./server
 COPY package.json package-lock.json config.js index.js ./
