@@ -1,7 +1,7 @@
 FROM node:16-alpine AS builder
 WORKDIR /server
 COPY . .
-# RUN npm install
+RUN npm install
 RUN npm ci
 RUN npm run build
 
