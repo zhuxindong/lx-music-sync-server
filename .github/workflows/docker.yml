@@ -35,6 +35,6 @@ jobs:
           push: true
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64,linux/arm64
-          tags: |
+          tags: | 
             ${{ secrets.DOCKERHUB_USER }}/lx-music-sync-server:${{ github.ref_name }}
             ${{ secrets.DOCKERHUB_USER }}/lx-music-sync-server:latest
