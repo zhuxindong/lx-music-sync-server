@@ -5,12 +5,12 @@ RUN set -ex \
            g++ \
            make \
            py3-pip \
-    && rm -rf /tmp/* /var/cache/apk/*
 WORKDIR /server
 COPY . .
 # RUN npm install
 RUN npm ci
 RUN npm run build
+RUN rm -rf /tmp/* /var/cache/apk/*
 
 
 FROM node:16-alpine AS final
@@ -20,11 +20,11 @@ RUN set -ex \
            g++ \
            make \
            py3-pip \
-    && rm -rf /tmp/* /var/cache/apk/*
 WORKDIR /server
 COPY --from=builder ./server/server ./server
 COPY package.json package-lock.json config.js index.js ./
 RUN npm ci --omit=dev
+RUN rm -rf /tmp/* /var/cache/apk/*
 
 EXPOSE 9527
 ENV NODE_ENV 'production'
